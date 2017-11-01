@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import logo from './logo.svg';
 import './App.css';
 import PerfumesListContainer from './containers/PerfumesListContainer';
@@ -21,4 +23,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => { 
+  return { perfumes: state.perfumes };
+};
+
+export default connect(mapStateToProps)(App);
