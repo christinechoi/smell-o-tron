@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { addPerfume } from  './actions/perfumesActions';
 
 import logo from './logo.svg';
 import './App.css';
@@ -24,7 +26,15 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => { 
-  return { perfumes: state.perfumes };
+  return { 
+    perfumes: state.perfumes 
+  };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    addPerfume: addPerfume
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
