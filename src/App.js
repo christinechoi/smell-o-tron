@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addPerfume } from  './actions/perfumesActions';
+import { fetchPerfume } from  './actions/perfumesActions';
 
 import logo from './logo.svg';
 import './App.css';
 import PerfumesListContainer from './containers/PerfumesListContainer';
 
 class App extends Component {
+
+
+
+
   render() {
     return (
       <div className="App">
@@ -15,9 +19,6 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
 
         <PerfumesListContainer />
       </div>
@@ -25,15 +26,17 @@ class App extends Component {
   }
 }
 
+
 const mapStateToProps = (state) => { 
-  return { 
-    perfumes: state.perfumes 
-  };
+  console.log('in map state to props')
+  {debugger};
+  return { perfumes: state.perfumes };
 };
+
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    addPerfume: addPerfume
+    fetchPerfume: fetchPerfume
   }, dispatch);
 };
 
