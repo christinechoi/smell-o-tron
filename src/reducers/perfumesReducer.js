@@ -1,11 +1,12 @@
 
 export default (state = [], action) => {
   switch (action.type) {
-    case 'ADD_PERFUMES':
-      
-      return action.perfumes 
+    case 'FETCH_PERFUME':
+      {debugger};
+      return action.payload;
 
     default:
       return state;
-  }
+  }   
 };
+
