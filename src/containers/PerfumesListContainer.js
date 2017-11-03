@@ -1,68 +1,90 @@
 import React, { Component } from 'react';
 import PerfumesList from '../components/PerfumesList';
 
+import { fetchPerfume } from '../actions/perfumesActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class PerfumesListContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: ''
+      value: '',
+      perfumes: ''
     };
   }
 
-  handleChange(event) {
+
+  componentDidMount() {
+
+    if (this.props.perfumes) {
+      console.log('in component did mount, container')
+      // this.props.addPerfume()
+    }
+  }
+
+  // componentDidMount() {
+  //   this.store.subscribe(() => this.forceUpdate());
+  // }
+
+  handleChange =event => {
     this.setState({
-      [event.target.name]: event.target.value,
+      value: event.target.value//[event.target.name]: event.target.value
     });
   }
 
   handleOnSubmit(event) {
     {debugger};
     event.preventDefault();
-    this.props.store.dispatch({
-      type: 'ADD_PERFUME',
-      perfumes: this.state,
-    });
+    this.props.fetchPerfume(this.state);
+
+    //this.props.store.dispatch(addPerfume(this.state));
+
     {debugger};
   }
 
   render() {
     return(
       <div>
-        <PerfumesList />
-        <h3> dividing line </h3>
+        <PerfumesList perfumes={this.props.perfumes}/>
+        
         <form onSubmit={(event) => this.handleOnSubmit(event)}>
+        
           <p>
             <input
               type="text"
-              name="username"
-              value={this.state.username}
-              onChange={(event) => this.handleChange(event)} />
+              name="perfumes"
+              value={this.state.value}
+              onChange ={this.handleChange}
+              />
+              {this.state.text}
           </p>
-          <p>
-            <input
-              type="text"
-              name="hometown"
-              value={this.state.perfume}
-              onChange={(event) => this.handleChange(event)} />
-          </p>
+          {this.state.value}
           <input type="submit" />
         </form>
-        <h3> hello line </h3>
-        <form onSubmit={(event) => this.handleOnSubmit(event)}>
-          <p>
-            <label>Enter Perfume:</label>
-            <input 
-            type="text"
-             />
-          </p>
-          <input type="submit" />
-        </form>
+        <h3></h3>
+        
       </div>
     );
   }
 }
 
+const mapStateToProps = (state) => { 
+  
+  return { 
+    perfumes: state.perfumes 
+  };
+};
 
-export default PerfumesListContainer;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    fetchPerfume: fetchPerfume
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PerfumesListContainer);
+
+
+
+// export default PerfumesListContainer;
