@@ -1,18 +1,21 @@
 import React from 'react';
-
   
-const PerfumesList = ({ perfumes }) => {
-  
-  const perfumes = perfumes.map((perfume, index) =>
-    <div>
-       <li key={index}>Perfume: {perfume.brand} {perfume.name}</li>
-    </div>
-  );
+const PerfumesList = (props) => {
+  {debugger};
+  function listPerfumes() {
+    if (props.perfumes) {
+      return props.perfumes.map(perfume => {
+        return (
+          <div><a href="#" id={perfume.id}>{perfume.name} by {perfume.brand}</a></div>
+        )
+      })
+    }
+  }
 
   return (
     <div>
-      <h2> Perfumes </h2>
-      <h3> {perfumes} </h3>
+      <h2> Find a Perfume:  </h2>
+      <h1> {listPerfumes()} </h1>
     </div>
   );
 };
