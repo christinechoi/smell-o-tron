@@ -1,7 +1,9 @@
+
 import React, { Component } from 'react';
 import PerfumesList from '../components/PerfumesList';
+import SearchResults from '../components/SearchResults';
 
-import { fetchPerfume } from '../actions/perfumesActions';
+import { fetchPerfume, addPerfume } from '../actions/perfumesActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -15,22 +17,17 @@ class PerfumesListContainer extends Component {
     };
   }
 
-
-  componentDidMount() {
-
-    if (this.props.perfumes) {
-      console.log('in component did mount, container')
-      // this.props.addPerfume()
-    }
+  handleOnClick(event) {
+    console.log('in handleClick');
+    event.preventDefault();
+    {debugger};
+    this.props.addPerfume(event.target);
   }
 
-  // componentDidMount() {
-  //   this.store.subscribe(() => this.forceUpdate());
-  // }
 
   handleChange =event => {
     this.setState({
-      value: event.target.value//[event.target.name]: event.target.value
+      value: event.target.value
     });
   }
 
@@ -38,19 +35,14 @@ class PerfumesListContainer extends Component {
     {debugger};
     event.preventDefault();
     this.props.fetchPerfume(this.state);
-
-    //this.props.store.dispatch(addPerfume(this.state));
-
-    {debugger};
   }
 
   render() {
     return(
       <div>
-        <PerfumesList perfumes={this.props.perfumes}/>
         
         <form onSubmit={(event) => this.handleOnSubmit(event)}>
-        
+          <h3> Search for a Perfume: </h3>
           <p>
             <input
               type="text"
@@ -63,7 +55,11 @@ class PerfumesListContainer extends Component {
           {this.state.value}
           <input type="submit" />
         </form>
-        <h3></h3>
+
+        <SearchResults 
+          perfumes={this.props.perfumes} 
+          handleOnClick={this.handleOnClick.bind(this)} 
+          addPerfume={this.props.addPerfume} />
         
       </div>
     );
@@ -79,12 +75,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchPerfume: fetchPerfume
+    fetchPerfume: fetchPerfume,
+    addPerfume: addPerfume
   }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PerfumesListContainer);
 
+  
 
 
-// export default PerfumesListContainer;
+
