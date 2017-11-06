@@ -6,9 +6,8 @@ export default (state = [], action) => {
       return action.payload;
     case 'ADD_PERFUME':
       {debugger};
-      //change state - add perfume to PerfumesList
 
-      return action.payload;
+      return { selectedPerfumes: action.payload };
     default:
       return state;
   }   

@@ -1,12 +1,15 @@
 import React from 'react';
   
 const PerfumesList = (props) => {
-  {debugger};
+//   // {debugger};
   function listPerfumes() {
-    if (props.perfumes) {
-      return props.perfumes.map(perfume => {
+    if (props.selectedPerfumes) {
+      return props.selectedPerfumes.map(perfume => {
         return (
-          <div><a href="#" id={perfume.id}>{perfume.name} by {perfume.brand}</a></div>
+          <div id={perfume.id}>
+            <img className="image" src={perfume.pictureURL}></img>
+            <h4>{perfume.name} by {perfume.brand}</h4>
+          </div>
         )
       })
     }
@@ -14,8 +17,8 @@ const PerfumesList = (props) => {
 
   return (
     <div>
-      <h2> Find a Perfume:  </h2>
-      <h1> {listPerfumes()} </h1>
+      <h2> You have selected:  </h2>
+      <div> {listPerfumes()} </div>
     </div>
   );
 };

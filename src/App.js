@@ -27,7 +27,8 @@ const mapStateToProps = (state) => {
   console.log('in map state to props')
   // {debugger};
   return { 
-    perfumes: state.perfumes
+    perfumes: state.perfumes,
+    selectedPerfumes: state.selectedPerfumes
    };
 };
 
