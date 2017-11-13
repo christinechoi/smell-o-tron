@@ -2,8 +2,6 @@ import fetch from 'isomorphic-fetch';
 
 
 export function fetchPerfume(input) {
-  
-  
   return (dispatch) => {
     dispatch({ type: 'START_FETCHING_PERFUMES_REQUEST' });
     // {debugger};
@@ -18,24 +16,35 @@ export function fetchPerfume(input) {
 }
 
 export function addPerfume(input) {
-
   {debugger};
   return (dispatch) => {
+    dispatch({type: 'ADD_PERFUME', payload: input});
+  }
+}
 
-    let searchTerm = input.id;
+
+export function getRecommendation(input) {
+  return (dispatch) => {
+
+    let searchTerm = input;
     {debugger};
+    // dispatch({type: 'ADD_PERFUME', payload: input})
+    // , {
+    //   method: 'GET', 
+    //   headers: 'Access-Control-Allow-Origin: <origin> | *'
+    // }
 
-    return fetch('http://scentsee.com/rest/collection/retrieveMany?ids[]=' + searchTerm)
+    return fetch('http://scentsee.com/rest/recommendation/byFavoriteFragranceId?ids[]=' + searchTerm
+    //   mode: 'no-cors'
+    )
       .then(response => {
-        {debugger};
+        console.log(response);
         return response.json()
       }).then(responseJson => {
-        console.log(responseJson);
         dispatch({type: 'ADD_PERFUME', payload: responseJson})
     })
   }
 }
-
 
 
 
