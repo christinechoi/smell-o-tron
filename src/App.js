@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchPerfume, addPerfume } from  './actions/perfumesActions';
+import { fetchPerfume, getRecommendation } from  './actions/perfumesActions';
 
 import logo from './logo.svg';
 import './App.css';
 import PerfumesListContainer from './containers/PerfumesListContainer';
+import SavedPerfumesContainer from './containers/SavedPerfumesContainer';
 
 class App extends Component {
 
@@ -17,18 +18,21 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
 
-        <PerfumesListContainer />
+        <PerfumesListContainer  />
+
+        <SavedPerfumesContainer />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => { 
-  console.log('in map state to props')
-  // {debugger};
+  {debugger};
   return { 
-    perfumes: state.perfumes,
-    selectedPerfumes: state.selectedPerfumes
+    perfumes: state.perfumes.perfumes,
+    img: state.perfumes.img,
+    name: state.perfumes.name,
+    brand: state.perfumes.brand
    };
 };
 
@@ -36,7 +40,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchPerfume: fetchPerfume,
-    addPerfume: addPerfume
+    getRecommendation: getRecommendation
   }, dispatch);
 };
 
