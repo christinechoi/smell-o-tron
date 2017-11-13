@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
-import PerfumesList from '../components/PerfumesList';
 import SearchResults from '../components/SearchResults';
+import SelectedPerfumes from '../components/SelectedPerfumes';
 
-import { fetchPerfume, addPerfume } from '../actions/perfumesActions';
+import { fetchPerfume, addPerfume, getRecommendation } from '../actions/perfumesActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -13,33 +13,49 @@ class PerfumesListContainer extends Component {
 
     this.state = {
       value: '',
-      perfumes: ''
+      perfumes: [],
+      img: [],
+      name: [],
+      brand: []
     };
   }
 
-  handleOnClick(event) {
-    console.log('in handleClick');
+  handleOnClick = event => {
     event.preventDefault();
     {debugger};
     this.props.addPerfume(event.target);
   }
 
-
-  handleChange =event => {
+  handleChange = event => {
     this.setState({
       value: event.target.value
     });
   }
 
   handleOnSubmit(event) {
-    {debugger};
+    // {debugger};
     event.preventDefault();
+    //empty state.perfumes - or 
+
     this.props.fetchPerfume(this.state);
+    // clear search field 
   }
 
   render() {
+    // const perfumesExist = !!this.state.perfumes;
+    {debugger};
     return(
+
       <div>
+
+        {(this.props.name.length === 0) ? null :
+          <SelectedPerfumes
+            img={this.props.img}
+            name={this.props.name}
+            
+            handleOnClick={this.handleOnClick.bind(this)} 
+            /> 
+        }
         
         <form onSubmit={(event) => this.handleOnSubmit(event)}>
           <h3> Search for a Perfume: </h3>
@@ -56,20 +72,29 @@ class PerfumesListContainer extends Component {
           <input type="submit" />
         </form>
 
-        <SearchResults 
-          perfumes={this.props.perfumes} 
-          handleOnClick={this.handleOnClick.bind(this)} 
-          addPerfume={this.props.addPerfume} />
-        
+
+        {(this.props.perfumes.length === 0) ? null :
+          <SearchResults 
+            perfumes={this.props.perfumes} 
+            handleOnClick={this.handleOnClick} 
+            addPerfume={this.props.addPerfume} /> 
+        }
+
       </div>
+      
     );
   }
 }
+// export default PerfumesListContainer;
+
 
 const mapStateToProps = (state) => { 
-  
+  // {debugger};
   return { 
-    perfumes: state.perfumes 
+    perfumes: state.perfumes.perfumes,
+    img: state.perfumes.img,
+    name: state.perfumes.name
+    
   };
 };
 
