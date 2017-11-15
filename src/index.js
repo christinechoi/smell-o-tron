@@ -3,15 +3,22 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import { Provider } from 'react-redux';
-
-import perfumesReducer from './reducers/perfumesReducer';
-import './index.css';
 import App from './App';
 import rootReducer from './reducers/rootReducer';
+import { Provider } from 'react-redux';
+import perfumesReducer from './reducers/perfumesReducer';
 
-const store = createStore(rootReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
- ));
+import '../node_modules/semantic-ui/dist/semantic.min.css';
+import './index.css';
+
+const store = createStore(
+  rootReducer, 
+  compose(
+    applyMiddleware(thunk), 
+    window.__REDUX_DEVTOOLS_EXTENSION__ && 
+    window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+);
 
 
 ReactDOM.render(
