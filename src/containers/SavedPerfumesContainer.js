@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PerfumesList from './components/PerfumesList';
+// import PerfumesList from '../components/PerfumesList';
 
 // import { getRecommendation } from '../actions/perfumesActions';
 import { connect } from 'react-redux';
@@ -10,7 +10,9 @@ class SavedPerfumesContainer extends Component {
     super(props);
 
     this.state = {
-      selectedPerfumes: []
+      img: '',
+      name: '',
+      brand: ''
     }
   }
 
@@ -28,11 +30,6 @@ class SavedPerfumesContainer extends Component {
           <button> Get Recommendations </button>
         </form>
 
-        <PerfumesList 
-          selectedPerfumes={this.props.selectedPerfumes}
-          handleOnClick={this.handleOnClick.bind(this)} 
-          addPerfume={this.props.addPerfume}/>
-
       </div>
     )
   }
@@ -41,7 +38,9 @@ class SavedPerfumesContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    selectedPerfumes: state.selectedPerfumes
+    img: state.img,
+    name: state.name,
+    brand: state.brand
   };
 };
 
@@ -51,7 +50,6 @@ const mapStateToProps = (state) => {
 //   }, dispatch);
 // };
 
-// , mapDispatchToProps
 
 export default connect(mapStateToProps)(SavedPerfumesContainer);
 
