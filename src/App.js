@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchPerfume, getRecommendation } from  './actions/perfumesActions';
+import { fetchPerfume, deletePerfume, getRecommendation } from  './actions/perfumesActions';
 
 import logo from './logo.svg';
 import './App.css';
@@ -27,7 +27,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => { 
-  {debugger};
+  // {debugger};
   return { 
     perfumes: state.perfumes.perfumes,
     img: state.perfumes.img,
@@ -40,7 +40,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchPerfume: fetchPerfume,
-    getRecommendation: getRecommendation
+    getRecommendation: getRecommendation,
+    deletePerfume: deletePerfume
   }, dispatch);
 };
 
