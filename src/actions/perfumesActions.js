@@ -15,10 +15,19 @@ export function fetchPerfume(input) {
   }
 }
 
-export function addPerfume(input) {
+export function addPerfume(target, childNodes) {
   {debugger};
   return (dispatch) => {
-    dispatch({type: 'ADD_PERFUME', payload: input});
+    dispatch({type: 'ADD_PERFUME', payload: target, childNodes});
+  }
+}
+
+export function deletePerfume(data) {
+  {debugger};
+
+  //constructor function here?
+  return (dispatch) => {
+    dispatch({type: 'DELETE_PERFUME', payload: data});
   }
 }
 
