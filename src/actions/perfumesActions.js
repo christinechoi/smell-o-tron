@@ -15,15 +15,15 @@ export function fetchPerfume(input) {
   }
 }
 
-export function addPerfume(target, childNodes) {
-  {debugger};
+export function addPerfume(target, perfume) {
+  // {debugger};
   return (dispatch) => {
-    dispatch({type: 'ADD_PERFUME', payload: target, childNodes});
+    dispatch({type: 'ADD_PERFUME', payload: target, perfume});
   }
 }
 
 export function deletePerfume(data) {
-  {debugger};
+  // {debugger};
 
   //constructor function here?
   return (dispatch) => {
@@ -32,10 +32,10 @@ export function deletePerfume(data) {
 }
 
 
-export function getRecommendation(input) {
+export function getRecommendation(target, ids) {
   return (dispatch) => {
 
-    let searchTerm = input;
+    let searchTerm = ids;
     {debugger};
     // dispatch({type: 'ADD_PERFUME', payload: input})
     // , {
@@ -50,7 +50,7 @@ export function getRecommendation(input) {
         console.log(response);
         return response.json()
       }).then(responseJson => {
-        dispatch({type: 'ADD_PERFUME', payload: responseJson})
+        dispatch({type: 'GET_RECOMMENDATION', payload: responseJson})
     })
   }
 }
