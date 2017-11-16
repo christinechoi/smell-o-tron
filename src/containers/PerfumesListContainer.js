@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Form } from 'semantic-ui-react';
+import { Grid, Form, Divider, Segment } from 'semantic-ui-react';
 import SearchResults from '../components/SearchResults';
 import SelectedPerfumes from '../components/SelectedPerfumes';
 
@@ -17,20 +17,27 @@ class PerfumesListContainer extends Component {
       perfumes: [],
       img: [],
       name: [],
-      brand: []
+      brand: [],
+      id: []
     };
   }
 
   removeOnClick = event => {
     event.preventDefault();
-    {debugger};
+    // {debugger};
     this.props.deletePerfume(event.target);
   }
 
-  handleOnClick = event => {
+  handleOnClick = (perfume, event)  => {
     event.preventDefault();
     {debugger};
-    this.props.addPerfume(event.target, event.currentTarget.childNodes[1]);
+    this.props.addPerfume(event.target, perfume) 
+  }
+
+  handleClick = (idArray, event) => {
+    event.preventDefault();
+    {debugger};
+    this.props.getRecommendation(event.target, idArray)
   }
 
   handleChange = event => {
@@ -49,7 +56,7 @@ class PerfumesListContainer extends Component {
   }
 
   render() {
-    
+    // {debugger};
     return(
 
       <div>
@@ -59,20 +66,41 @@ class PerfumesListContainer extends Component {
             img={this.props.img}
             name={this.props.name}
             brand={this.props.brand}
+            id={this.props.id}
             removeOnClick={this.removeOnClick} 
+            handleClick={this.handleClick}
             /> 
         }
+
+        <Divider>divider</Divider>
+
         
         { (this.props.name.length === 3) ? null : 
-          <Form onSubmit={(event) => this.handleOnSubmit(event)}>
-            <Form.Input 
-              value={this.state.value}
-              label="Search for a Perfume"
-              onChange ={this.handleChange}
-              type="text" />
-            <Form.Button>Submit</Form.Button>
-          </Form>
+          <Grid>
+            <Grid.Row centered>
+              <Grid.Column width={12}>
+
+                <Form className="ui segment"
+                  size='massive'
+                  onSubmit={(event) => this.handleOnSubmit(event)}>
+                  <Form.Field className='ui center aligned'>centered form field</Form.Field >
+                  <Form.Input 
+                    icon='search'
+                    iconPosition='left'
+                    value={this.state.value}
+                    onChange ={this.handleChange}
+                    type="text" />
+
+                  <Form.Button color='teal' size='massive' fluid >Find</Form.Button>
+
+                </Form>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         }
+
+
+        <Segment>segment here</Segment>
 
         {(this.props.perfumes.length === 0) ? null :
           <SearchResults 
@@ -93,7 +121,8 @@ const mapStateToProps = (state) => {
     perfumes: state.perfumes.perfumes,
     img: state.perfumes.img,
     name: state.perfumes.name,
-    brand: state.perfumes.brand
+    brand: state.perfumes.brand,
+    id: state.perfumes.id
   };
 };
 
@@ -101,7 +130,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchPerfume: fetchPerfume,
     addPerfume: addPerfume,
-    deletePerfume: deletePerfume
+    deletePerfume: deletePerfume,
+    getRecommendation: getRecommendation
   }, dispatch);
 };
 
