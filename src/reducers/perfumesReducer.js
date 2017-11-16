@@ -3,22 +3,28 @@ const initialState = {
   perfumes: [],
   img: [],
   name: [],
-  brand: []
+  brand: [],
+  id: [],
+  recommendations: [],
+  basedOn: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_PERFUME':
-      // {debugger};
-      return { ...state, perfumes: action.payload}
+      {debugger};
+      let uniqueArray = action.payload;
+      
+      return { ...state, perfumes: uniqueArray}
     case 'ADD_PERFUME':
      
       {debugger};
       return {  
         ...state, 
         img: state.img.concat(action.payload.src),
-        name: state.name.concat(action.childNodes.children[0].innerText), 
-        brand: state.brand.concat(action.childNodes.children[1].innerText) 
+        name: state.name.concat(action.perfume.name), 
+        brand: state.brand.concat(action.perfume.brand),
+        id: state.id.concat(action.perfume.id)
       }
 
     case 'DELETE_PERFUME':
@@ -44,12 +50,15 @@ export default (state = initialState, action) => {
       return { 
         ...state, 
         img: ex,
-        name: modName, //state.name.slice(ind, ind+1),
-        brand: modBrand // state.brand.slice(ind, ind+1)
+        name: modName, 
+        brand: modBrand 
       };  
     case 'GET_RECOMMENDATION':
       {debugger};
-      return { ...state, selectedPerfumes: action.payload };  
+      return { 
+        ...state, 
+        recommendations: state.recommendations.concat(action.payload.recommendations),
+        basedOn: state.basedOn.concat(action.payload.basedOn) };  
     default:
       // {debugger};
       return state;
