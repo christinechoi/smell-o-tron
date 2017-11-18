@@ -22,30 +22,18 @@ export function addPerfume(target, perfume) {
   }
 }
 
-export function deletePerfume(data) {
+export function deletePerfume(target, perfume) {
   // {debugger};
-
-  //constructor function here?
   return (dispatch) => {
-    dispatch({type: 'DELETE_PERFUME', payload: data});
+    dispatch({type: 'DELETE_PERFUME', payload: target, perfume});
   }
 }
 
-
 export function getRecommendation(target, ids) {
   return (dispatch) => {
+    // {debugger};
 
-    let searchTerm = ids;
-    {debugger};
-    // dispatch({type: 'ADD_PERFUME', payload: input})
-    // , {
-    //   method: 'GET', 
-    //   headers: 'Access-Control-Allow-Origin: <origin> | *'
-    // }
-
-    return fetch('http://scentsee.com/rest/recommendation/byFavoriteFragranceId?ids[]=' + searchTerm
-    //   mode: 'no-cors'
-    )
+    return fetch('http://scentsee.com/rest/recommendation/byFavoriteFragranceId?ids[]=' + ids)
       .then(response => {
         console.log(response);
         return response.json()
