@@ -30,13 +30,10 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => { 
-  {debugger};
+  // {debugger};
   return { 
     perfumes: state.perfumes.perfumes,
-    img: state.perfumes.img,
-    name: state.perfumes.name,
-    brand: state.perfumes.brand,
-    id: state.perfumes.id,
+    selectedPerfumes: state.perfumes.selectedPerfumes,
     recommendations: state.perfumes.recommendations,
     basedOn: state.perfumes.basedOn
    };
