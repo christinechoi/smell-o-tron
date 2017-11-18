@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Grid, Form, Divider, Segment } from 'semantic-ui-react';
+import { Grid, Form, Divider, Segment, Sticky } from 'semantic-ui-react';
 import SearchResults from '../components/SearchResults';
 import SelectedPerfumes from '../components/SelectedPerfumes';
 
@@ -22,15 +22,15 @@ class PerfumesListContainer extends Component {
     };
   }
 
-  removeOnClick = event => {
+  removeOnClick = (perfume, event) => {
     event.preventDefault();
     // {debugger};
-    this.props.deletePerfume(event.target);
+    this.props.deletePerfume(event.target, perfume);
   }
 
   handleOnClick = (perfume, event)  => {
     event.preventDefault();
-    {debugger};
+    // {debugger};
     this.props.addPerfume(event.target, perfume) 
   }
 
@@ -56,17 +56,18 @@ class PerfumesListContainer extends Component {
   }
 
   render() {
-    // {debugger};
+    {debugger};
     return(
 
       <div>
 
-        { (this.props.name.length === 0) ? null :
+      <Divider>divider</Divider>
+
+      <Segment>segment</Segment>  
+
+        { (this.props.selectedPerfumes.length === 0) ? null :
           <SelectedPerfumes
-            img={this.props.img}
-            name={this.props.name}
-            brand={this.props.brand}
-            id={this.props.id}
+            selectedPerfumes={this.props.selectedPerfumes}
             removeOnClick={this.removeOnClick} 
             handleClick={this.handleClick}
             /> 
@@ -75,13 +76,14 @@ class PerfumesListContainer extends Component {
         <Divider>divider</Divider>
 
         
-        { (this.props.name.length === 3) ? null : 
+        { (this.props.selectedPerfumes.length === 3) ? null : 
           <Grid>
             <Grid.Row centered>
               <Grid.Column width={12}>
-
+                
+                
                 <Form className="ui segment"
-                  size='massive'
+                  size='big'
                   onSubmit={(event) => this.handleOnSubmit(event)}>
                   <Form.Field className='ui center aligned'>centered form field</Form.Field >
                   <Form.Input 
@@ -91,9 +93,11 @@ class PerfumesListContainer extends Component {
                     onChange ={this.handleChange}
                     type="text" />
 
-                  <Form.Button color='teal' size='massive' fluid >Find</Form.Button>
+                  <Form.Button color='teal' size='massive' fluid > Search for Perfume </Form.Button>
 
                 </Form>
+                
+
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -119,10 +123,7 @@ const mapStateToProps = (state) => {
   // {debugger};
   return { 
     perfumes: state.perfumes.perfumes,
-    img: state.perfumes.img,
-    name: state.perfumes.name,
-    brand: state.perfumes.brand,
-    id: state.perfumes.id
+    selectedPerfumes: state.perfumes.selectedPerfumes
   };
 };
 
