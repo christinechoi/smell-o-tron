@@ -1,10 +1,13 @@
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Icon, Button } from 'semantic-ui-react';
+
 
 const SearchResults = (props) => {
-  {debugger};
+  // {debugger};
+
   return (
-    <div className='search SearchResults'> {
+
+    <Card.Group className='ui four column doubling stackable grid container'> {
       props.perfumes.map((perfume, index) => (  
         <Card 
           key={index} 
@@ -12,11 +15,11 @@ const SearchResults = (props) => {
           
           header={perfume.name}
           meta={perfume.brand}
-          onClick={props.handleOnClick.bind(this)}  
+          onClick={props.handleOnClick.bind(this, perfume)}  
         />
-      ))
+     ))
     }
-    </div>
+    </Card.Group>
   );
 };
 
