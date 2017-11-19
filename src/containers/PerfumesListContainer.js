@@ -14,29 +14,22 @@ class PerfumesListContainer extends Component {
 
     this.state = {
       value: '',
-      perfumes: [],
-      img: [],
-      name: [],
-      brand: [],
-      id: []
+      perfumes: []
     };
   }
 
   removeOnClick = (perfume, event) => {
     event.preventDefault();
-    // {debugger};
     this.props.deletePerfume(event.target, perfume);
   }
 
   handleOnClick = (perfume, event)  => {
     event.preventDefault();
-    // {debugger};
     this.props.addPerfume(event.target, perfume) 
   }
 
   handleClick = (idArray, event) => {
     event.preventDefault();
-    {debugger};
     this.props.getRecommendation(event.target, idArray)
   }
 
@@ -47,7 +40,6 @@ class PerfumesListContainer extends Component {
   }
 
   handleOnSubmit(event) {
-    // {debugger};
     event.preventDefault();
     //empty state.perfumes - or 
 
@@ -74,7 +66,6 @@ class PerfumesListContainer extends Component {
         }
 
         <Divider>divider</Divider>
-
         
         { (this.props.selectedPerfumes.length === 3) ? null : 
           <Grid>
